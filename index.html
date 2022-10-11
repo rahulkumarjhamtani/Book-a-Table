@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Table</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./logo.jpg">
+</head>
+<body>
+    <div class="setBtn">
+        <button id="myBtn">Book a Table</button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- <span class="close">&times;</span> -->
+
+            <div class="center">
+                <h1>Book a Table</h1>
+                <div class="fields">
+                    <label for="visitorName">Visitor's Name</label>
+                    <input type="text" name="visitorName" id="visitorName"><br>
+                    <label for="visitorTime">Visitor's Time (in mins)</label>
+                    <input type="number" name="visitorTime" id="visitorTime"><br>
+                    <label for="table">Table</label>
+                    <select name="table" id="tableNumber">
+                        <option value="Table 1">Table 1</option>
+                        <option value="Table 2">Table 2</option>
+                        <option value="Table 3">Table 3</option>
+                        <option value="Table 4">Table 4</option>
+                        <option value="Table 5">Table 5</option>
+                        <option value="Table 6">Table 6</option>
+                        <option value="Table 7">Table 7</option>
+                        <option value="Table 8">Table 8</option>
+                    </select>
+                    <br>
+                </div>
+
+                <button onclick="bookTable()">Book</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="setTable">
+        <table>
+            <tr>
+                <td class="bookTable"><span class="tableName">Table 1</span> <br><span class="status">Not Booked</span></td>
+                <td class="bookTable"><span class="tableName">Table 2</span> <br><span class="status">Not Booked</span></td>
+                <td class="bookTable"><span class="tableName">Table 3</span> <br><span class="status">Not Booked</span></td>
+                <td class="bookTable"><span class="tableName">Table 4</span> <br><span class="status">Not Booked</span></td>
+            </tr>
+            <tr>
+                <td class="bookTable"><span class="tableName">Table 5</span> <br><span class="status">Not Booked</span></td>
+                <td class="bookTable"><span class="tableName">Table 6</span> <br><span class="status">Not Booked</span></td>
+                <td class="bookTable"><span class="tableName">Table 7</span> <br><span class="status">Not Booked</span></td>
+                <td class="bookTable"><span class="tableName">Table 8</span> <br><span class="status">Not Booked</span></td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    var newdate;
+    var remainingTime;
+    function currentTime()
+    {
+        var timer = setInterval(function () {
+            var visitorTime = document.getElementById("visitorTime").value;
+            var currentdate = new Date();
+            var time = currentdate.getMinutes();
+
+            var time2 = newdate.getMinutes() + parseInt(visitorTime);
+            console.log(time2);
+            remainingTime = parseInt(time2) - parseInt(time);
+            console.log('Remaining Time = '+ remainingTime + ' minutes');
+
+            if(remainingTime == 0)
+            {
+                clearInterval(timer);
+            }
+        }, 1000);
+        /*var visitorTime = document.getElementById("visitorTime").value;
+        var currentdate = new Date();
+        var time = currentdate.getMinutes();
+
+        var time2 = newdate.getMinutes() + parseInt(visitorTime);
+        console.log(time2);
+        var remainingTime = parseInt(time2) - parseInt(time);
+        console.log('Remaining Time = '+ remainingTime + ' minutes');
+
+        if(remainingTime == 0)
+        {
+            return remainingTime;
+        }*/
+    }
+
+
+    
+
+    function bookTable(event)
+    {
+        //console.log(event.target.value);
+        
+        var bookTable = document.getElementsByClassName('bookTable');
+        var table = document.getElementsByClassName('tableName');
+        var status = document.getElementsByClassName('status');
+        var visitorName = document.getElementById("visitorName").value;
+
+        let labelVal = document.getElementById("tableNumber").value;
+
+        
+        newdate = new Date();
+        
+
+        for(var i=0;i<table.length;i++)
+        {
+            if(labelVal == table[i].innerText)
+            {
+                if(status[i].innerHTML == 'Booked')
+                {
+                    for(var j=i+1;j<table.length;j++)
+                    {
+                        if(status[j].innerHTML == 'Booked')
+                        {
+                            alert('All the tables are Booked, and will update the booking once available');
+                            return;
+                        }
+                    }
+                    alert('We have added you to the queue, and will update the booking once available. Else please select another table');
+                    if(remainingTime == 0)
+                    {
+                        for(var i=0;i<table.length;i++)
+                        {
+                            if(labelVal == table[i].innerText)
+                            {
+                                if(status[i].innerHTML == 'Booked')
+                                {
+                                    status[i].innerHTML = 'Not Booked';
+                                    bookTable[i].style.backgroundColor = 'rgb(172, 172, 172)'; 
+                                    alert('Now your table is Ready');
+                                }
+                            }
+                        }
+
+                    }
+                    return;
+                }
+                else
+                {
+                    status[i].innerHTML = 'Booked';
+                    bookTable[i].style.backgroundColor = '#4db34a'; 
+                    alert('Thanks, '+ visitorName +' for Booking with Us');
+                }
+            }
+        }
+        currentTime();
+        
+        modal.style.display = "none";
+
+        
+    }
+</script>
+</html>

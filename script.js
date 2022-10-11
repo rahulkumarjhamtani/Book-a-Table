@@ -45,7 +45,7 @@ function currentTime()
             var visitorName = document.getElementById("visitorName").value;
 
             let labelVal = document.getElementById("tableNumber").value;
-            alert('Now your table is Ready');
+            //alert('Now your table is Ready');
 
             for(var i=0;i<table.length;i++)
             {
@@ -126,4 +126,6 @@ function bookTable(event)
     currentTime();
     
     modal.style.display = "none";
+
+    
 }

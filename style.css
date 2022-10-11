@@ -52,6 +52,14 @@
   cursor: pointer;
 }
 
+#greenBtn
+{
+  margin-top: 20px;
+  background-color: #4db34a;
+  width: 30%;
+  
+}
+
 .fields {
   line-height: 2.6;
 }

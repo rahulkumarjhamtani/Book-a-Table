@@ -19,7 +19,7 @@ window.onclick = function (event) {
     }
 };
 
-var newdate = new Date();
+var newdate;
 var remainingTime;
 function currentTime()
 {
@@ -35,6 +35,28 @@ function currentTime()
 
         if(remainingTime == 0)
         {
+            var bookTable = document.getElementsByClassName('bookTable');
+            var table = document.getElementsByClassName('tableName');
+            var status = document.getElementsByClassName('status');
+            var visitorName = document.getElementById("visitorName").value;
+
+            let labelVal = document.getElementById("tableNumber").value;
+            alert('Now your table is Ready');
+
+            for(var i=0;i<table.length;i++)
+            {
+                if(labelVal == table[i].innerText)
+                {
+                    if(status[i].innerHTML == 'Booked')
+                    {
+                        status[i].innerHTML = 'Not Booked';
+                        bookTable[i].style.backgroundColor = 'rgb(172, 172, 172)'; 
+                                
+                    }
+                }
+            }
+
+                
             clearInterval(timer);
         }
     }, 1000);
@@ -68,7 +90,7 @@ function bookTable(event)
     let labelVal = document.getElementById("tableNumber").value;
 
     
-
+    newdate = new Date();
     
 
     for(var i=0;i<table.length;i++)
@@ -85,23 +107,8 @@ function bookTable(event)
                         return;
                     }
                 }
+                
                 alert('We have added you to the queue, and will update the booking once available. Else please select another table');
-                if(remainingTime == 0)
-                {
-                    for(var i=0;i<table.length;i++)
-                    {
-                        if(labelVal == table[i].innerText)
-                        {
-                            if(status[i].innerHTML == 'Booked')
-                            {
-                                status[i].innerHTML = 'Not Booked';
-                                bookTable[i].style.backgroundColor = 'rgb(172, 172, 172)'; 
-                                alert('Now your table is Ready');
-                            }
-                        }
-                    }
-
-                }
                 return;
             }
             else

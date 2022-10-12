@@ -25,45 +25,47 @@ window.onclick = function (event) {
 
 var newdate;
 var remainingTime;
+
 function currentTime()
 {
-    var timer = setInterval(function () {
-        var visitorTime = document.getElementById("visitorTime").value;
-        var currentdate = new Date();
-        var time = currentdate.getMinutes();
+    
 
-        var time2 = newdate.getMinutes() + parseInt(visitorTime);
-        console.log(time2);
-        remainingTime = parseInt(time2) - parseInt(time);
-        console.log('Remaining Time = '+ remainingTime + ' minutes');
+    // var timer = setInterval(function () {
+    //     var currentdate = new Date();
+    //     var time = currentdate.getMinutes();
 
-        if(remainingTime == 0)
-        {
-            var bookTable = document.getElementsByClassName('bookTable');
-            var table = document.getElementsByClassName('tableName');
-            var status = document.getElementsByClassName('status');
-            var visitorName = document.getElementById("visitorName").value;
+    //     var time2 = newdate.getMinutes() + parseInt(visitorTime);
+    //     console.log(time2);
+    //     remainingTime = parseInt(time2) - parseInt(time);
+    //     console.log('Remaining Time = '+ remainingTime + ' minutes');
 
-            let labelVal = document.getElementById("tableNumber").value;
-            //alert('Now your table is Ready');
+    //     if(remainingTime == 0)
+    //     {
+    //         var bookTable = document.getElementsByClassName('bookTable');
+    //         var table = document.getElementsByClassName('tableName');
+    //         var status = document.getElementsByClassName('status');
+    //         var visitorName = document.getElementById("visitorName").value;
 
-            for(var i=0;i<table.length;i++)
-            {
-                if(labelVal == table[i].innerText)
-                {
-                    if(status[i].innerHTML == 'Booked')
-                    {
-                        status[i].innerHTML = 'Not Booked';
-                        bookTable[i].style.backgroundColor = 'rgb(172, 172, 172)'; 
-                                
-                    }
-                }
-            }
+    //         let labelVal = document.getElementById("tableNumber").value;
+            
+    //         for(var i=0;i<table.length;i++)
+    //         {
+    //             if(labelVal == table[i].innerText)
+    //             {
+    //                 if(status[i].innerHTML == 'Booked')
+    //                 {
+    //                     status[i].innerHTML = 'Not Booked';
+    //                     bookTable[i].style.backgroundColor = 'rgb(172, 172, 172)'; 
+                        
+    //                 }
+    //             }
+    //         }
+    //         alert('Now your table is Ready');
 
                 
-            clearInterval(timer);
-        }
-    }, 1000);
+    //         clearInterval(timer);
+    //     }
+    // }, 1000);
     /*var visitorTime = document.getElementById("visitorTime").value;
     var currentdate = new Date();
     var time = currentdate.getMinutes();
@@ -77,9 +79,22 @@ function currentTime()
     {
         return remainingTime;
     }*/
+
+    var visitorTime = parseInt(document.getElementById("visitorTime").value);
+    console.log('visitorTime', visitorTime);
+    let x = tNumber;
+
+    setTimeout(() => {
+
+        document.getElementById(x).style.backgroundColor = 'rgb(172, 172, 172)';
+        document.getElementById('s'+x).innerHTML = 'Not Booked';
+
+
+        
+    }, visitorTime * 1000);
 }
 
-
+var tNumber;
 
 
 function bookTable(event)
@@ -90,9 +105,13 @@ function bookTable(event)
     var table = document.getElementsByClassName('tableName');
     var status = document.getElementsByClassName('status');
     var visitorName = document.getElementById("visitorName").value;
+    var visitorTime = document.getElementById("visitorTime").value;
 
     let labelVal = document.getElementById("tableNumber").value;
 
+    tNumber = labelVal.split(' ')[1];
+
+    console.log('tno ',tNumber);
     
     newdate = new Date();
     
@@ -118,7 +137,7 @@ function bookTable(event)
             else
             {
                 status[i].innerHTML = 'Booked';
-                bookTable[i].style.backgroundColor = '#4db34a'; 
+                bookTable[i].style.backgroundColor = '#4db34a';
                 alert('Thanks, '+ visitorName +' for Booking with Us');
             }
         }

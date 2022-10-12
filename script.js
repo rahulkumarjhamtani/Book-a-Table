@@ -89,6 +89,11 @@ function currentTime()
         document.getElementById(x).style.backgroundColor = 'rgb(172, 172, 172)';
         document.getElementById('s'+x).innerHTML = 'Not Booked';
 
+        var readyTable = document.getElementById('t'+x).innerHTML;
+        alert('Now '+ readyTable +' is Ready');
+
+        allBook--;
+        document.getElementById('showMsg').innerHTML = '';
 
         
     }, visitorTime * 1000);
@@ -96,6 +101,7 @@ function currentTime()
 
 var tNumber;
 
+var allBook = 0;
 
 function bookTable(event)
 {
@@ -122,14 +128,20 @@ function bookTable(event)
         {
             if(status[i].innerHTML == 'Booked')
             {
-                for(var j=i+1;j<table.length;j++)
-                {
-                    if(status[j].innerHTML == 'Booked')
-                    {
-                        alert('All the tables are Booked, and will update the booking once available');
-                        return;
-                    }
-                }
+                // for(var j=i+1;j<table.length;j++)
+                // {
+                //     if(status[j].innerHTML == 'Booked')
+                //     {
+                //         allBook++;
+                //         console.log('Book ',allBook);
+                //         if(allBook == 7)
+                //         {
+                //             alert('All the tables are Booked, and will update the booking once available');
+                //             return;
+
+                //         }
+                //     }
+                // }
                 
                 alert('We have added you to the queue, and will update the booking once available. Else please select another table');
                 return;
@@ -139,6 +151,14 @@ function bookTable(event)
                 status[i].innerHTML = 'Booked';
                 bookTable[i].style.backgroundColor = '#4db34a';
                 alert('Thanks, '+ visitorName +' for Booking with Us');
+                
+                allBook++;
+                if(allBook == 8)
+                {
+                    //alert('All the tables are Booked, and will update the booking once available');
+                    document.getElementById('showMsg').innerHTML = 'All the tables are Booked, and will update the booking once available';
+                    return;
+                }
             }
         }
     }
